@@ -2,9 +2,9 @@ package com.example.dowhateveriwant;
 
 import com.example.dowhateveriwant.entity.OrganizationChart;
 import com.example.dowhateveriwant.entity.QOrganizationChart;
-import com.example.dowhateveriwant.repository.OrganizationChartRepository;
-import com.example.dowhateveriwant.repository.OrganizationChartVer1;
-import com.example.dowhateveriwant.repository.PersonRepository;
+import com.example.dowhateveriwant.repository.oranization.OrganizationChartRepository;
+import com.example.dowhateveriwant.repository.oranization.OrganizationChartVer1;
+import com.example.dowhateveriwant.repository.oranization.PersonRepository;
 import com.querydsl.core.Tuple;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.example.dowhateveriwant.entity.QOrganizationChart.organizationChart;
 
 
 @SpringBootTest

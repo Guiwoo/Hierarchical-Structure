@@ -1,4 +1,4 @@
-package com.example.dowhateveriwant.repository;
+package com.example.dowhateveriwant.repository.oranization;
 
 import com.example.dowhateveriwant.entity.OrganizationChart;
 import org.springframework.data.jpa.repository.JpaRepository;
