@@ -20,7 +20,11 @@ public class OrganizationChart {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_id")
-    private OrganizationChart organizationChart;
+    private OrganizationChart parent;
+
+    public void updateParents(OrganizationChart org){
+        this.parent = org;
+    }
 }
