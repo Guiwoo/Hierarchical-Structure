@@ -115,7 +115,7 @@ public class CategoryTest {
         Category 한라봉 = categoryRepository.findById(146L).get();
         List<Category> parents = categoryQuery.findParents(한라봉);
         for (Category parent : parents) {
-            System.out.println(parent.getName());
+            System.out.println(parent.getName() + parent.getName());
         }
     }
 }
