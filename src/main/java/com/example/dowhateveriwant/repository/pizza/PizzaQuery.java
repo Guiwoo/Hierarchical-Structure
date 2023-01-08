@@ -2,21 +2,17 @@ package com.example.dowhateveriwant.repository.pizza;
 
 import com.example.dowhateveriwant.entity.Pizza;
 import com.example.dowhateveriwant.entity.PizzaPaths;
-import com.example.dowhateveriwant.entity.QPizza;
 import com.example.dowhateveriwant.entity.QPizzaPaths;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dowhateveriwant.entity.QPizzaPaths.*;
+import static com.example.dowhateveriwant.entity.QPizzaPaths.pizzaPaths;
+import static com.querydsl.jpa.JPAExpressions.select;
 
 @Repository
 public class PizzaQuery {
@@ -88,18 +84,33 @@ public class PizzaQuery {
                 .fetch();
     }
 
-    private List<Pizza> getPizzaByParetns(Pizza parents) {
-        return queryFactory.select(pizzaPaths.parents)
-                .from(pizzaPaths)
-                .where(pizzaPaths.child.id.eq(parents.getId()),
-                        pizzaPaths.child.ne(pizzaPaths.parents))
-                .fetch();
-    }
-
-
     private void savePizzaPath(Pizza p) {
         pathsRepository.save(
                 PizzaPaths.builder().parents(p).child(p).build()
         );
+    }
+
+    public void moveWithSubTree(Pizza target,Pizza move){
+        deleteByPizza(target);
+    }
+
+    private void deleteByPizza(Pizza target){
+        QPizzaPaths q2 = new QPizzaPaths("q2");
+        QPizzaPaths q3 = new QPizzaPaths("q3");
+        queryFactory
+                .delete(pizzaPaths)
+                .where(
+                        pizzaPaths.child.in(
+                                select(q2.child)
+                                        .from(q2)
+                                        .where(q2.parents.eq(target))
+                        ),
+                        pizzaPaths.parents.in(
+                                select(q3.parents)
+                                        .from(q3)
+                                        .where(q3.child.eq(target),
+                                                q3.parents.ne(q3.child))
+                        )
+                ).execute();
     }
 }

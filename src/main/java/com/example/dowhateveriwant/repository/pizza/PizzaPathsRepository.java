@@ -14,4 +14,10 @@ import java.util.List;
 public interface PizzaPathsRepository extends JpaRepository<PizzaPaths,Long> {
     List<PizzaPaths> findAllByChild(Pizza pizza);
     void deleteAllByChild(Pizza pizza);
+
+    @Query(value = "insert into pizza_paths (parents,child) " +
+            "(select super.parents,sub.child from pizza_paths super" +
+            " cross join pizza_paths sub" +
+            " where super.child = parents and sub.parents = child)",nativeQuery = true)
+    void shitInsertData(@Param("parents") Long parents,@Param("child") Long child);
 }

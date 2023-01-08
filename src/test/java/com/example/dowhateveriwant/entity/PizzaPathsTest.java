@@ -117,7 +117,7 @@ class PizzaPathsTest {
     }
 
     @Test
-    void insertEnd() throws Exception{
+    void insertEndBetweeen() throws Exception{
 
         Pizza 살라미 = pizzaRepository.findByName("살라미").get();
         Pizza save = pizzaRepository.save(Pizza.builder().name("디아볼로").build());
@@ -137,5 +137,31 @@ class PizzaPathsTest {
                     + pizzaPaths.getChild().getName()
             );
         }
+    }
+
+    @Test
+    void moveSubTreeToOther() throws Exception{
+        insert();
+        // 살라미 를 마르게리타 아래로 옮길꺼야 어떻게 ? 부모 를 지워주자.
+        Pizza 마르게리타 = pizzaRepository.findByName("마르게리타").get();
+        Pizza 살라미 = pizzaRepository.findByName("살라미").get();
+
+        pizzaQuery.moveWithSubTree(살라미,마르게리타);
+
+        pizzaPathsRepository.shitInsertData(마르게리타.getId(),살라미.getId());
+
+        List<PizzaPaths> all = pizzaPathsRepository.findAll();
+        for (PizzaPaths pizzaPaths : all) {
+            System.out.println(pizzaPaths.getParents()
+                    +" "+ pizzaPaths.getChild());
+        }
+    }
+
+    private void insert() {
+        Pizza 살라미 = pizzaRepository.findByName("살라미").get();
+        Pizza save = pizzaRepository.save(Pizza.builder().name("디아볼로").build());
+        Pizza save2 = pizzaRepository.save(Pizza.builder().name("하와이안").build());
+        pizzaQuery.insertPizza(save,살라미);
+        pizzaQuery.insertPizza(save2,살라미);
     }
 }
