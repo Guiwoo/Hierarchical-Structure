@@ -92,6 +92,7 @@ public class PizzaQuery {
 
     public void moveWithSubTree(Pizza target,Pizza move){
         deleteByPizza(target);
+        pathsRepository.shiftInsertData(move.getId(),target.getId());
     }
 
     private void deleteByPizza(Pizza target){

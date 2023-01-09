@@ -93,9 +93,8 @@ class PizzaPathsTest {
                 .child(b)
                 .build();
 
-        pizzaPathsRepository.saveAll(List.of(selfA,selfB,path1,path2));
         Assertions.assertThrows(DataIntegrityViolationException.class,
-                ()->pizzaPathsRepository.findAll());
+                ()->pizzaPathsRepository.saveAll(List.of(selfA,selfB,path1,path2)));
     }
 
     @Test
@@ -147,8 +146,6 @@ class PizzaPathsTest {
         Pizza 살라미 = pizzaRepository.findByName("살라미").get();
 
         pizzaQuery.moveWithSubTree(살라미,마르게리타);
-
-        pizzaPathsRepository.shitInsertData(마르게리타.getId(),살라미.getId());
 
         List<PizzaPaths> all = pizzaPathsRepository.findAll();
         for (PizzaPaths pizzaPaths : all) {
