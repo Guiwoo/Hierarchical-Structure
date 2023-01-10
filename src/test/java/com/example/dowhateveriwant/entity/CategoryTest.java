@@ -1,4 +1,4 @@
-package com.example.dowhateveriwant;
+package com.example.dowhateveriwant.entity;
 
 import com.example.dowhateveriwant.entity.Category;
 import com.example.dowhateveriwant.repository.category.CategoryQuery;

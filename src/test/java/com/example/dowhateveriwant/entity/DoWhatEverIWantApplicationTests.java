@@ -1,4 +1,4 @@
-package com.example.dowhateveriwant;
+package com.example.dowhateveriwant.entity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

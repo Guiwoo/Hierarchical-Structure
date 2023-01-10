@@ -1,4 +1,4 @@
-package com.example.dowhateveriwant;
+package com.example.dowhateveriwant.entity;
 
 import com.example.dowhateveriwant.entity.OrganizationChart;
 import com.example.dowhateveriwant.entity.QOrganizationChart;
